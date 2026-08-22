@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>POKELAB MMO</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="bootScreen">
+
+    <div class="boot-logo">
+        <div class="logo-ball">
+            <span></span>
+        </div>
+
+        <h1>POKELAB</h1>
+        <p>ONLINE WORLD</p>
+    </div>
+
+    <div class="loading-box">
+        <div class="loading-track">
+            <div id="loadingBar"></div>
+        </div>
+
+        <span id="loadingText">
+            INITIALIZING WORLD...
+        </span>
+    </div>
+
+</div>
+
+
+<div id="app" class="hidden">
+
+    <!-- =====================================================
+         TOP BAR
+    ====================================================== -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-ball">
+                <span></span>
+            </div>
+
+            <div>
+                <strong>POKELAB</strong>
+                <small>MMO</small>
+            </div>
+
+        </div>
+
+
+        <div class="server-status">
+
+            <span class="status-dot"></span>
+
+            <div>
+                <strong>WORLD 01</strong>
+                <small id="onlinePlayers">
+                    128 PLAYERS ONLINE
+                </small>
+            </div>
+
+        </div>
+
+
+        <div class="top-actions">
+
+            <button onclick="openProfile()" class="icon-button">
+                👤
+            </button>
+
+            <button onclick="openSettings()" class="icon-button">
+                ⚙
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         GAME
+    ====================================================== -->
+
+    <main class="game-layout">
+
+
+        <!-- WORLD -->
+
+        <section class="world-wrapper">
+
+            <div id="world">
+
+                <div class="world-glow"></div>
+
+                <div id="mapLayer"></div>
+
+                <div id="entitiesLayer"></div>
+
+                <div id="player">
+
+                    <div class="player-shadow"></div>
+
+                    <div class="player-sprite">
+                        🧑
+                    </div>
+
+                    <div class="player-name">
+                        MAXI
+                    </div>
+
+                </div>
+
+
+                <div class="location-card">
+
+                    <span>📍</span>
+
+                    <div>
+                        <strong id="locationName">
+                            RUTA NOVA
+                        </strong>
+
+                        <small>
+                            KANTO REGION
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <div class="world-message" id="worldMessage">
+                    Presiona WASD o las flechas para moverte
+                </div>
+
+
+                <!-- ENCOUNTER -->
+
+                <div id="encounterAlert" class="encounter-alert hidden">
+
+                    <div class="encounter-icon">
+                        !
+                    </div>
+
+                    <div>
+                        <strong>
+                            ¡POKÉMON SALVAJE!
+                        </strong>
+
+                        <small id="encounterName">
+                            —
+                        </small>
+                    </div>
+
+                </div>
+
+
+                <!-- CONTROLS -->
+
+                <div class="mobile-controls">
+
+                    <button data-key="ArrowUp">▲</button>
+
+                    <div>
+                        <button data-key="ArrowLeft">◀</button>
+                        <button data-key="ArrowDown">▼</button>
+                        <button data-key="ArrowRight">▶</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SIDE MENU
+        ================================================== -->
+
+        <aside class="side-panel">
+
+            <div class="trainer-card">
+
+                <div class="trainer-avatar">
+                    🧑
+                </div>
+
+                <div class="trainer-info">
+
+                    <strong>MAXI</strong>
+
+                    <span>
+                        TRAINER
+                    </span>
+
+                    <div class="trainer-level">
+                        <span>LV. 12</span>
+
+                        <div>
+                            <i style="width:72%"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="coins">
+                    ₽ 500
+                </div>
+
+            </div>
+
+
+            <!-- TEAM -->
+
+            <div class="panel-section">
+
+                <div class="section-title">
+
+                    <span>🐾 EQUIPO</span>
+
+                    <small id="teamCount">
+                        2 / 6
+                    </small>
+
+                </div>
+
+                <div id="teamList"></div>
+
+            </div>
+
+
+            <!-- MENU -->
+
+            <nav class="main-menu">
+
+                <button onclick="openPokedex()">
+                    <span>📖</span>
+                    <div>
+                        <strong>POKÉDEX</strong>
+                        <small>Explorar especies</small>
+                    </div>
+                    <b>›</b>
+                </button>
+
+
+                <button onclick="openInventory()">
+                    <span>🎒</span>
+                    <div>
+                        <strong>MOCHILA</strong>
+                        <small>Objetos y recursos</small>
+                    </div>
+                    <b>›</b>
+                </button>
+
+
+                <button onclick="openProfile()">
+                    <span>🏅</span>
+                    <div>
+                        <strong>ENTRENADOR</strong>
+                        <small>Perfil y estadísticas</small>
+                    </div>
+                    <b>›</b>
+                </button>
+
+
+                <button onclick="openCollection()">
+                    <span>✨</span>
+                    <div>
+                        <strong>COLECCIÓN</strong>
+                        <small>Pokémon especiales</small>
+                    </div>
+                    <b>›</b>
+                </button>
+
+            </nav>
+
+
+            <div class="quick-actions">
+
+                <button onclick="healTeam()">
+                    🏥 CURAR
+                </button>
+
+                <button onclick="exploreArea()">
+                    🌿 EXPLORAR
+                </button>
+
+            </div>
+
+
+            <div class="side-footer">
+
+                <span>POKELAB MMO</span>
+
+                <small>
+                    BUILD 0.1.0
+                </small>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+</div>
+
+
+<!-- =========================================================
+     MODAL
+========================================================== -->
+
+<div id="modal" class="modal hidden">
+
+    <div class="modal-backdrop" onclick="closeModal()"></div>
+
+    <div class="modal-window">
+
+        <button class="modal-close" onclick="closeModal()">
+            ×
+        </button>
+
+        <div id="modalContent"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     BATTLE
+========================================================== -->
+
+<div id="battleScreen" class="battle-screen hidden">
+
+    <div class="battle-background"></div>
+
+    <div class="battle-top">
+
+        <div class="battle-enemy-card">
+
+            <div>
+
+                <strong id="enemyName">
+                    —
+                </strong>
+
+                <span id="enemyLevel">
+                    Lv. 5
+                </span>
+
+            </div>
+
+            <div class="hp-wrapper">
+
+                <span>HP</span>
+
+                <div class="hp-track">
+                    <i id="enemyHPBar"></i>
+                </div>
+
+            </div>
+
+            <small id="enemyHPText">
+                20 / 20
+            </small>
+
+        </div>
+
+        <div id="enemyPokemon" class="battle-pokemon enemy">
+        </div>
+
+    </div>
+
+
+    <div class="battle-bottom">
+
+        <div id="playerPokemon" class="battle-pokemon player">
+        </div>
+
+
+        <div class="battle-player-card">
+
+            <div class="battle-player-title">
+
+                <strong id="playerName">
+                    —
+                </strong>
+
+                <span id="playerLevel">
+                    Lv. 5
+                </span>
+
+            </div>
+
+
+            <div class="hp-wrapper">
+
+                <span>HP</span>
+
+                <div class="hp-track">
+
+                    <i id="playerHPBar"></i>
+
+                </div>
+
+            </div>
+
+
+            <small id="playerHPText">
+                20 / 20
+            </small>
+
+        </div>
+
+
+        <div class="battle-dialog">
+
+            <div id="battleText">
+                ¿Qué hará tu Pokémon?
+            </div>
+
+            <div class="battle-actions">
+
+                <button onclick="battleAttack()">
+                    ⚔️ LUCHAR
+                </button>
+
+                <button onclick="battleCapture()">
+                    🔴 CAPTURAR
+                </button>
+
+                <button onclick="openSwitchMenu()">
+                    🐾 POKÉMON
+                </button>
+
+                <button onclick="runBattle()">
+                    🏃 HUIR
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SCRIPTS
+========================================================== -->
+
+<script src="data.js"></script>
+<script src="game.js"></script>
+<script src="map.js"></script>
+<script src="battle.js"></script>
+
+</body>
+</html>
