@@ -1,0 +1,1868 @@
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+
+    --green:#49e878;
+    --green-dark:#183d27;
+
+    --red:#ff3d52;
+    --yellow:#ffd447;
+
+    --bg:#070b09;
+    --panel:#0d1511;
+    --panel2:#111d16;
+
+    --border:#25392d;
+
+    --text:#f5fff8;
+    --muted:#8da296;
+
+}
+
+html,
+body{
+
+    width:100%;
+    height:100%;
+
+}
+
+body{
+
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #163b25 0,
+            #070b09 55%
+        );
+
+    color:var(--text);
+
+    font-family:
+        "Nunito",
+        sans-serif;
+
+}
+
+
+/* =========================================================
+   BOOT
+========================================================= */
+
+#bootScreen{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:999;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        radial-gradient(
+            circle,
+            #183b24,
+            #050806 65%
+        );
+
+}
+
+.boot-logo{
+
+    text-align:center;
+
+    animation:
+        bootIn
+        1s
+        ease;
+
+}
+
+.boot-logo h1{
+
+    margin-top:20px;
+
+    font-family:
+        "Press Start 2P";
+
+    letter-spacing:5px;
+
+    font-size:35px;
+
+}
+
+.boot-logo p{
+
+    color:var(--green);
+
+    letter-spacing:7px;
+
+    margin-top:10px;
+
+}
+
+
+.logo-ball,
+.brand-ball{
+
+    width:80px;
+    height:80px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    background:
+        linear-gradient(
+            #ff4655 0 47%,
+            #111 47% 53%,
+            #eee 53%
+        );
+
+    border:5px solid #111;
+
+    position:relative;
+
+    box-shadow:
+        0 0 40px #ff465555;
+
+}
+
+.logo-ball span,
+.brand-ball span{
+
+    position:absolute;
+
+    width:24px;
+    height:24px;
+
+    background:#eee;
+
+    border:5px solid #111;
+
+    border-radius:50%;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+}
+
+
+.loading-box{
+
+    width:300px;
+
+    margin-top:55px;
+
+    text-align:center;
+
+}
+
+.loading-track{
+
+    height:8px;
+
+    border-radius:20px;
+
+    background:#142119;
+
+    overflow:hidden;
+
+}
+
+#loadingBar{
+
+    height:100%;
+
+    width:0%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #49e878,
+            #caffd5
+        );
+
+    transition:.2s;
+
+}
+
+#loadingText{
+
+    display:block;
+
+    margin-top:12px;
+
+    font-size:10px;
+
+    letter-spacing:2px;
+
+    color:var(--muted);
+
+}
+
+
+.hidden{
+
+    display:none !important;
+
+}
+
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.topbar{
+
+    height:70px;
+
+    display:flex;
+
+    align-items:center;
+
+    padding:0 22px;
+
+    gap:25px;
+
+    background:
+        rgba(8,14,10,.95);
+
+    border-bottom:
+        1px solid var(--border);
+
+    position:relative;
+
+    z-index:20;
+
+}
+
+.brand{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+}
+
+.brand-ball{
+
+    width:38px;
+    height:38px;
+
+    border-width:3px;
+
+}
+
+.brand-ball span{
+
+    width:13px;
+    height:13px;
+
+    border-width:3px;
+
+}
+
+.brand strong{
+
+    display:block;
+
+    font-size:16px;
+
+    letter-spacing:2px;
+
+}
+
+.brand small{
+
+    color:var(--green);
+
+    letter-spacing:3px;
+
+    font-size:9px;
+
+}
+
+.server-status{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding-left:20px;
+
+    border-left:1px solid var(--border);
+
+}
+
+.status-dot{
+
+    width:9px;
+    height:9px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:
+        0 0 12px var(--green);
+
+    animation:
+        pulse
+        1.5s
+        infinite;
+
+}
+
+.server-status strong{
+
+    display:block;
+
+    font-size:11px;
+
+}
+
+.server-status small{
+
+    color:var(--muted);
+
+    font-size:9px;
+
+}
+
+.top-actions{
+
+    margin-left:auto;
+
+    display:flex;
+
+    gap:8px;
+
+}
+
+.icon-button{
+
+    width:40px;
+    height:40px;
+
+    border-radius:10px;
+
+    border:1px solid var(--border);
+
+    background:var(--panel);
+
+    color:white;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.icon-button:hover{
+
+    transform:
+        translateY(-2px);
+
+    border-color:
+        var(--green);
+
+}
+
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.game-layout{
+
+    height:
+        calc(100vh - 70px);
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        330px;
+
+}
+
+
+/* =========================================================
+   WORLD
+========================================================= */
+
+.world-wrapper{
+
+    min-width:0;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+#world{
+
+    width:100%;
+    height:100%;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            135deg,
+            #3f7e42 25%,
+            #477f45 25%,
+            #477f45 50%,
+            #3f7e42 50%,
+            #3f7e42 75%,
+            #477f45 75%
+        );
+
+    background-size:
+        90px 90px;
+
+}
+
+.world-glow{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            transparent 0,
+            rgba(0,0,0,.35) 100%
+        );
+
+    pointer-events:none;
+
+    z-index:5;
+
+}
+
+
+/* MAP */
+
+#mapLayer{
+
+    position:absolute;
+
+    inset:0;
+
+}
+
+.road{
+
+    position:absolute;
+
+    background:#c99c5d;
+
+    border:
+        5px solid #a97c46;
+
+    box-shadow:
+        inset 0 0 0 2px #dcb77b;
+
+}
+
+.road.horizontal{
+
+    left:5%;
+    right:5%;
+
+    top:46%;
+
+    height:110px;
+
+    border-radius:30px;
+
+}
+
+.road.vertical{
+
+    top:10%;
+    bottom:10%;
+
+    left:47%;
+
+    width:110px;
+
+    border-radius:30px;
+
+}
+
+.house{
+
+    position:absolute;
+
+    width:120px;
+    height:90px;
+
+    border-radius:10px;
+
+    background:
+        #d85a45;
+
+    border:
+        5px solid #632f29;
+
+    box-shadow:
+        0 10px 0 #0002;
+
+}
+
+.house:before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+    top:-35px;
+
+    border-left:
+        60px solid transparent;
+
+    border-right:
+        60px solid transparent;
+
+    border-bottom:
+        40px solid #8c302a;
+
+}
+
+
+/* =========================================================
+   PLAYER
+========================================================= */
+
+#player{
+
+    position:absolute;
+
+    width:65px;
+
+    height:80px;
+
+    z-index:10;
+
+    left:50%;
+    top:50%;
+
+    transform:
+        translate(-50%,-50%);
+
+    transition:
+        left .12s linear,
+        top .12s linear;
+
+}
+
+.player-sprite{
+
+    font-size:45px;
+
+    text-align:center;
+
+    filter:
+        drop-shadow(
+            0 7px 4px #0008
+        );
+
+    animation:
+        playerIdle
+        1.8s
+        infinite;
+
+}
+
+.player-shadow{
+
+    position:absolute;
+
+    width:42px;
+    height:12px;
+
+    left:12px;
+    bottom:5px;
+
+    background:#0006;
+
+    border-radius:50%;
+
+    filter:
+        blur(3px);
+
+}
+
+.player-name{
+
+    position:absolute;
+
+    bottom:-12px;
+
+    left:50%;
+
+    transform:
+        translateX(-50%);
+
+    padding:3px 7px;
+
+    border-radius:5px;
+
+    background:#08100bcc;
+
+    color:white;
+
+    font-size:8px;
+
+    font-weight:900;
+
+}
+
+
+/* =========================================================
+   LOCATION
+========================================================= */
+
+.location-card{
+
+    position:absolute;
+
+    left:18px;
+    top:18px;
+
+    z-index:8;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:10px 14px;
+
+    background:
+        rgba(7,13,9,.85);
+
+    border:
+        1px solid #385442;
+
+    border-radius:10px;
+
+    backdrop-filter:
+        blur(10px);
+
+}
+
+.location-card > span{
+
+    font-size:20px;
+
+}
+
+.location-card strong{
+
+    display:block;
+
+    font-size:11px;
+
+}
+
+.location-card small{
+
+    color:var(--muted);
+
+    font-size:8px;
+
+}
+
+
+/* =========================================================
+   SIDE PANEL
+========================================================= */
+
+.side-panel{
+
+    background:
+        linear-gradient(
+            180deg,
+            #0d1711,
+            #09100c
+        );
+
+    border-left:
+        1px solid var(--border);
+
+    padding:18px;
+
+    overflow:auto;
+
+}
+
+.trainer-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:13px;
+
+    border-radius:13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #15271b,
+            #0d1711
+        );
+
+    border:
+        1px solid #2c4935;
+
+}
+
+.trainer-avatar{
+
+    width:48px;
+    height:48px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:12px;
+
+    background:#203b28;
+
+    font-size:27px;
+
+}
+
+.trainer-info{
+
+    min-width:0;
+
+}
+
+.trainer-info strong{
+
+    display:block;
+
+    font-size:13px;
+
+}
+
+.trainer-info > span{
+
+    display:block;
+
+    color:var(--green);
+
+    font-size:8px;
+
+    letter-spacing:1px;
+
+}
+
+.trainer-level{
+
+    margin-top:6px;
+
+}
+
+.trainer-level span{
+
+    font-size:8px;
+
+    color:var(--muted);
+
+}
+
+.trainer-level > div{
+
+    width:100px;
+
+    height:4px;
+
+    background:#203127;
+
+    margin-top:3px;
+
+    border-radius:5px;
+
+    overflow:hidden;
+
+}
+
+.trainer-level i{
+
+    display:block;
+
+    height:100%;
+
+    background:var(--green);
+
+}
+
+.coins{
+
+    margin-left:auto;
+
+    font-size:10px;
+
+    color:var(--yellow);
+
+}
+
+
+/* =========================================================
+   TEAM
+========================================================= */
+
+.panel-section{
+
+    margin-top:18px;
+
+}
+
+.section-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-bottom:8px;
+
+}
+
+.section-title span{
+
+    font-size:10px;
+
+    font-weight:900;
+
+    letter-spacing:1px;
+
+}
+
+.section-title small{
+
+    color:var(--muted);
+
+}
+
+.team-card{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:8px;
+
+    margin-bottom:6px;
+
+    border-radius:9px;
+
+    background:#101d15;
+
+    border:1px solid transparent;
+
+    transition:.2s;
+
+}
+
+.team-card:hover{
+
+    border-color:
+        #365841;
+
+    transform:
+        translateX(3px);
+
+}
+
+.team-card img{
+
+    width:50px;
+    height:50px;
+
+    object-fit:contain;
+
+}
+
+.team-card strong{
+
+    display:block;
+
+    font-size:11px;
+
+}
+
+.team-card small{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:8px;
+
+}
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+.main-menu{
+
+    margin-top:17px;
+
+    display:grid;
+
+    gap:6px;
+
+}
+
+.main-menu button{
+
+    display:grid;
+
+    grid-template-columns:
+        35px
+        1fr
+        15px;
+
+    align-items:center;
+
+    text-align:left;
+
+    gap:5px;
+
+    width:100%;
+
+    padding:11px;
+
+    border:
+        1px solid transparent;
+
+    background:#101b15;
+
+    color:white;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.main-menu button:hover{
+
+    background:#16261c;
+
+    border-color:#31553b;
+
+    transform:
+        translateX(3px);
+
+}
+
+.main-menu button > span{
+
+    font-size:19px;
+
+}
+
+.main-menu strong{
+
+    display:block;
+
+    font-size:10px;
+
+}
+
+.main-menu small{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:8px;
+
+    margin-top:2px;
+
+}
+
+.main-menu b{
+
+    color:#557761;
+
+}
+
+.quick-actions{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:6px;
+
+    margin-top:10px;
+
+}
+
+.quick-actions button{
+
+    padding:10px 5px;
+
+    border:
+        1px solid var(--border);
+
+    background:#111e16;
+
+    color:white;
+
+    border-radius:8px;
+
+    font-size:9px;
+
+    cursor:pointer;
+
+}
+
+.quick-actions button:hover{
+
+    border-color:
+        var(--green);
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:100;
+
+    display:grid;
+
+    place-items:center;
+
+}
+
+.modal-backdrop{
+
+    position:absolute;
+
+    inset:0;
+
+    background:#000b;
+
+    backdrop-filter:
+        blur(8px);
+
+}
+
+.modal-window{
+
+    position:relative;
+
+    width:
+        min(650px,92vw);
+
+    max-height:
+        85vh;
+
+    overflow:auto;
+
+    padding:25px;
+
+    border:
+        1px solid #355b40;
+
+    border-radius:18px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #132219,
+            #09100c
+        );
+
+    box-shadow:
+        0 30px 100px #000;
+
+    animation:
+        modalIn
+        .25s
+        ease;
+
+}
+
+.modal-close{
+
+    position:absolute;
+
+    right:15px;
+    top:12px;
+
+    width:35px;
+    height:35px;
+
+    border:0;
+
+    background:#18251c;
+
+    color:white;
+
+    border-radius:8px;
+
+    font-size:20px;
+
+    cursor:pointer;
+
+}
+
+.modal-title{
+
+    font-size:20px;
+
+    margin-bottom:18px;
+
+}
+
+.modal-subtitle{
+
+    color:var(--muted);
+
+    font-size:11px;
+
+    margin-bottom:20px;
+
+}
+
+
+/* DEX */
+
+.dex-grid{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:8px;
+
+}
+
+.dex-card{
+
+    position:relative;
+
+    padding:12px 7px;
+
+    text-align:center;
+
+    background:#101c15;
+
+    border:1px solid #21362a;
+
+    border-radius:11px;
+
+    transition:.2s;
+
+}
+
+.dex-card:hover{
+
+    transform:
+        translateY(-4px);
+
+    border-color:
+        var(--green);
+
+}
+
+.dex-card img{
+
+    width:85px;
+    height:85px;
+
+    object-fit:contain;
+
+    animation:
+        floatPokemon
+        3s
+        ease-in-out
+        infinite;
+
+}
+
+.dex-card strong{
+
+    display:block;
+
+    font-size:9px;
+
+}
+
+.dex-card small{
+
+    display:block;
+
+    color:var(--muted);
+
+    font-size:7px;
+
+    margin-top:3px;
+
+}
+
+
+/* =========================================================
+   ENCOUNTER
+========================================================= */
+
+.encounter-alert{
+
+    position:absolute;
+
+    left:50%;
+
+    top:20%;
+
+    transform:
+        translateX(-50%);
+
+    z-index:20;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:13px 18px;
+
+    background:
+        #0b150fe8;
+
+    border:
+        1px solid var(--green);
+
+    border-radius:12px;
+
+    box-shadow:
+        0 0 40px #49e87833;
+
+    animation:
+        encounterIn
+        .4s
+        ease;
+
+}
+
+.encounter-icon{
+
+    width:30px;
+    height:30px;
+
+    display:grid;
+    place-items:center;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    color:#07110d;
+
+    font-weight:900;
+
+}
+
+
+/* =========================================================
+   BATTLE
+========================================================= */
+
+.battle-screen{
+
+    position:fixed;
+
+    inset:0;
+
+    z-index:200;
+
+    background:#182c1a;
+
+}
+
+.battle-background{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 65%,
+            #79a95b,
+            #315c37 60%,
+            #102418
+        );
+
+}
+
+.battle-background:after{
+
+    content:"";
+
+    position:absolute;
+
+    left:10%;
+    right:10%;
+
+    bottom:8%;
+
+    height:25%;
+
+    border-radius:50%;
+
+    background:#193d22;
+
+}
+
+.battle-top,
+.battle-bottom{
+
+    position:absolute;
+
+    inset:0;
+
+}
+
+.battle-enemy-card{
+
+    position:absolute;
+
+    top:12%;
+
+    left:9%;
+
+    width:260px;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    background:#07100ce8;
+
+    border:1px solid #456b4c;
+
+}
+
+.battle-enemy-card strong{
+
+    font-size:15px;
+
+}
+
+.battle-enemy-card span{
+
+    float:right;
+
+    font-size:10px;
+
+    color:var(--yellow);
+
+}
+
+.battle-pokemon{
+
+    position:absolute;
+
+    display:grid;
+
+    place-items:center;
+
+    font-size:140px;
+
+    animation:
+        battleFloat
+        2.5s
+        ease-in-out
+        infinite;
+
+}
+
+.battle-pokemon.enemy{
+
+    right:18%;
+
+    top:17%;
+
+}
+
+.battle-pokemon.player{
+
+    left:18%;
+
+    bottom:27%;
+
+}
+
+.battle-player-card{
+
+    position:absolute;
+
+    right:8%;
+
+    bottom:30%;
+
+    width:270px;
+
+    padding:15px;
+
+    border-radius:12px;
+
+    background:#07100ce8;
+
+    border:1px solid #456b4c;
+
+}
+
+.battle-player-title{
+
+    display:flex;
+
+    justify-content:space-between;
+
+}
+
+.battle-player-title span{
+
+    color:var(--yellow);
+
+    font-size:10px;
+
+}
+
+.hp-wrapper{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-top:10px;
+
+}
+
+.hp-wrapper > span{
+
+    color:#7d9984;
+
+    font-size:8px;
+
+}
+
+.hp-track{
+
+    flex:1;
+
+    height:7px;
+
+    background:#26352a;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+}
+
+.hp-track i{
+
+    display:block;
+
+    height:100%;
+
+    width:100%;
+
+    background:#49e878;
+
+    transition:.4s;
+
+}
+
+.battle-dialog{
+
+    position:absolute;
+
+    left:4%;
+
+    right:4%;
+
+    bottom:3%;
+
+    min-height:115px;
+
+    padding:15px;
+
+    display:grid;
+
+    grid-template-columns:
+        1fr
+        390px;
+
+    gap:20px;
+
+    background:
+        #07100cf2;
+
+    border:
+        1px solid #416149;
+
+    border-radius:15px;
+
+}
+
+#battleText{
+
+    display:flex;
+
+    align-items:center;
+
+    font-size:14px;
+
+}
+
+.battle-actions{
+
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:7px;
+
+}
+
+.battle-actions button{
+
+    border:
+        1px solid #36543e;
+
+    background:#122017;
+
+    color:white;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    font-weight:800;
+
+}
+
+.battle-actions button:hover{
+
+    background:#1e3725;
+
+    border-color:
+        var(--green);
+
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes bootIn{
+
+    from{
+
+        opacity:0;
+        transform:
+            scale(.7)
+            translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:
+            scale(1)
+            translateY(0);
+
+    }
+
+}
+
+@keyframes pulse{
+
+    0%,100%{
+
+        opacity:1;
+
+        box-shadow:
+            0 0 8px var(--green);
+
+    }
+
+    50%{
+
+        opacity:.5;
+
+        box-shadow:
+            0 0 20px var(--green);
+
+    }
+
+}
+
+@keyframes playerIdle{
+
+    0%,100%{
+
+        transform:
+            translateY(0);
+
+    }
+
+    50%{
+
+        transform:
+            translateY(-3px);
+
+    }
+
+}
+
+@keyframes floatPokemon{
+
+    0%,100%{
+
+        transform:
+            translateY(0);
+
+    }
+
+    50%{
+
+        transform:
+            translateY(-6px);
+
+    }
+
+}
+
+@keyframes encounterIn{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translate(-50%,-20px)
+            scale(.8);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translate(-50%,0)
+            scale(1);
+
+    }
+
+}
+
+@keyframes modalIn{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            scale(.9)
+            translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            scale(1)
+            translateY(0);
+
+    }
+
+}
+
+@keyframes battleFloat{
+
+    0%,100%{
+
+        transform:
+            translateY(0);
+
+    }
+
+    50%{
+
+        transform:
+            translateY(-10px);
+
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+.mobile-controls{
+
+    display:none;
+
+}
+
+@media(max-width:850px){
+
+    body{
+
+        overflow:auto;
+
+    }
+
+    .game-layout{
+
+        display:block;
+
+        height:auto;
+
+    }
+
+    .world-wrapper{
+
+        height:65vh;
+
+    }
+
+    .side-panel{
+
+        min-height:35vh;
+
+        border-left:0;
+
+        border-top:
+            1px solid var(--border);
+
+    }
+
+    .dex-grid{
+
+        grid-template-columns:
+            repeat(2,1fr);
+
+    }
+
+    .mobile-controls{
+
+        display:block;
+
+        position:absolute;
+
+        left:20px;
+
+        bottom:20px;
+
+        z-index:20;
+
+    }
+
+    .mobile-controls button{
+
+        width:50px;
+        height:50px;
+
+        margin:2px;
+
+        border-radius:12px;
+
+        background:#07100dcc;
+
+        border:
+            1px solid #5a7b61;
+
+        color:white;
+
+        font-size:18px;
+
+    }
+
+    .battle-dialog{
+
+        grid-template-columns:1fr;
+
+    }
+
+    .battle-pokemon{
+
+        font-size:80px;
+
+    }
+
+    .battle-player-card,
+    .battle-enemy-card{
+
+        width:190px;
+
+    }
+
+}
